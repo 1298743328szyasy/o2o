@@ -17,7 +17,7 @@ public class Shop {
 	private String shopImg;
 	//店铺出现前后顺序
 	private Integer priority;
-	private Date createtime;
+	private Date createTime;
 	private Date lastEditTime;
 	//-1.不可用 0.审核中 1.可用 
 	private Integer enableStatus;
@@ -71,11 +71,11 @@ public class Shop {
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
-	public Date getCreatetime() {
-		return createtime;
+	public Date getCreateTime() {
+		return createTime;
 	}
 	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
+		this.createTime = createTime;
 	}
 	public Date getLastEditTime() {
 		return lastEditTime;

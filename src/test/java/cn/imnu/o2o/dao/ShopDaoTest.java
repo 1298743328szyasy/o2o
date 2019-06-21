@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +18,7 @@ public class ShopDaoTest extends BaseTest{
 	@Autowired
 	private ShopDao shopDao;
 	@Test
+	@Ignore
 	public void testInsertShop() {
 		Shop shop = new Shop();
 		PersonInfo owner = new PersonInfo();
@@ -37,6 +39,16 @@ public class ShopDaoTest extends BaseTest{
 		shop.setEnableStatus(1);
 		shop.setAdvice("审核中");
 		int effectedNum = shopDao.insertShop(shop);
+		assertEquals(1,effectedNum);
+	}
+	@Test
+	public void testUpdateShop() {
+		Shop shop = new Shop();
+		shop.setShopId(40L);
+		shop.setShopDesc("测试描述");
+		shop.setShopAddr("测试地址");
+		shop.setLastEditTime(new Date());
+		int effectedNum = shopDao.updateShop(shop);
 		assertEquals(1,effectedNum);
 	}
 }

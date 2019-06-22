@@ -2,6 +2,7 @@ package cn.imnu.o2o.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,8 +47,10 @@ public class ImageUtil {
 	 * @param thumbnail
 	 * @param targetAddr
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	public static String generateThumbnail(File thumbnail,String targetAddr) {
+	public static String generateThumbnail(File thumbnail,String targetAddr) throws UnsupportedEncodingException {
+		basePath = URLDecoder.decode(basePath,"utf-8");
 		//设置文件随机名
 		String realFileName = getRandomFileName();
 		//获取文件扩展名
@@ -59,13 +62,14 @@ public class ImageUtil {
 		logger.debug("current relativeAddr is:"+relativeAddr);
 		//根路径加相对路径
 		File dest=new File(PathUtil.getImgBasePath()+relativeAddr);
+
 		logger.debug("current relativeAddr is:"+PathUtil.getImgBasePath()+relativeAddr);
 
 		
 		try {
-			Thumbnails.of(thumbnail).size(200, 200)
+			Thumbnails.of(new File("/Program Files/timg.jpg")).size(200, 200)
 			.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 0.25f)
-			.outputQuality(0.8f).toFile(dest);
+			.outputQuality(0.8f).toFile("/Program Files/timgnew.jpg");
 		} catch (IOException e) {
 			logger.error(e.toString());
 			e.printStackTrace();
@@ -102,7 +106,6 @@ public class ImageUtil {
 	public static void main(String[] args) throws IOException {
 		
 		basePath = URLDecoder.decode(basePath,"utf-8");
-		System.out.println(basePath);
 		Thumbnails.of(new File("/Program Files/timg.jpg")).size(200, 200)
 				.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 0.25f)
 				.outputQuality(0.8f).toFile("/Program Files/timgnew.jpg");

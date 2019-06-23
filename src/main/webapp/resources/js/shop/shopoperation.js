@@ -6,12 +6,12 @@ $(function(){
 	var registerShopUrl='/o2o/shopadmin/registershop';
 	getShopInitInfo();
 	function getShopInitInfo(){
-		$.getJSON(initURL,function(data){
+		$.getJSON(initUrl,function(data){
 			if(data.success){
 				var tempHtml='';
 				var tempAreaHtml='';
 				data.shopCategoryList.map(function(item,index){
-					tempHtml +='<option data-id="'+item.shopCategoryId+'">'+item.shopCategoryName+'</option>'
+					tempHtml +='<option data-id="'+item.shopCategoryId+'">'+item.shopCategoryName+'</option>';
 				});
 				data.areaList.map(function(item,index){
 					tempAreaHtml+='<option data-id="'+item.areaId+'">'+item.areaName+'</option>';
@@ -40,6 +40,11 @@ $(function(){
 			var formData = new FormData();
 			formData.append('shopImg',shopImg);
 			formData.append('shopStr',JSON.stringify(shop));
+			var verifyCodeCodeActual = $('#j_captcha').val();
+			if(!verifyCodeActual){
+				$.toast('请输入验证码！');
+				return;
+			}
 			$.ajax({
 				url:registerShopUrl,
 				type:'POST',

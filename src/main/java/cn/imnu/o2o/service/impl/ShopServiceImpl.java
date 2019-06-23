@@ -1,6 +1,7 @@
 package cn.imnu.o2o.service.impl;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
@@ -22,7 +23,7 @@ public class ShopServiceImpl implements ShopService{
 	private ShopDao shopDao;
 	@Override
 	@Transactional
-	public ShopExecution addShop(Shop shop, File shopImg) {
+	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream,String fileName) {
 		//空值判断
 		if(shop==null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
@@ -36,10 +37,10 @@ public class ShopServiceImpl implements ShopService{
 			if(effectedNum<=0) {
 				throw new ShopOperationException("店铺创建失败");
 			}else {
-				if(shopImg!=null) {
+				if(shopImgInputStream!=null) {
 					//存储图片
 					try {
-						addShopImg(shop,shopImg);
+						addShopImg(shop,shopImgInputStream,fileName);
 						
 					}catch(Exception e) {
 						throw new ShopOperationException("addShopImg error:"+e.getMessage());
@@ -57,10 +58,10 @@ public class ShopServiceImpl implements ShopService{
 		
 		return new ShopExecution(ShopStateEnum.CHECK,shop);
 	}
-	private void addShopImg(Shop shop, File shopImg) throws UnsupportedEncodingException {
+	private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) throws UnsupportedEncodingException {
 		//获取相对值路径
 		String dest = PathUtil.getShopImagePath(shop.getShopId());
-		String shopImgAddr = ImageUtil.generateThumbnail(shopImg, dest);
+		String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream,fileName, dest);
 		shop.setShopImg(shopImgAddr);
 	}
 	

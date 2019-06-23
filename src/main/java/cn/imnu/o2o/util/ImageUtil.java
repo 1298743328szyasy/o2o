@@ -2,6 +2,7 @@ package cn.imnu.o2o.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
@@ -44,17 +45,17 @@ public class ImageUtil {
 	}
 	/**
 	 * 处理缩略图   并返回新生成图片的相对值路径
-	 * @param thumbnail
+	 * @param shopImgInputStream
 	 * @param targetAddr
 	 * @return
 	 * @throws UnsupportedEncodingException 
 	 */
-	public static String generateThumbnail(File thumbnail,String targetAddr) throws UnsupportedEncodingException {
+	public static String generateThumbnail(InputStream thumbnailInputStream,String fileName,String targetAddr) throws UnsupportedEncodingException {
 		basePath = URLDecoder.decode(basePath,"utf-8");
 		//设置文件随机名
 		String realFileName = getRandomFileName();
 		//获取文件扩展名
-		String extension = getFileExtension(thumbnail);
+		String extension = getFileExtension(fileName);
 		//新文件存储在target下
 		makeDirPath(targetAddr);
 		//生成图片相对路径
@@ -67,7 +68,7 @@ public class ImageUtil {
 
 		
 		try {
-			Thumbnails.of(new File("/Program Files/timg.jpg")).size(200, 200)
+			Thumbnails.of(thumbnailInputStream).size(200, 200)
 			.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 0.25f)
 			.outputQuality(0.8f).toFile("/Program Files/timgnew.jpg");
 		} catch (IOException e) {
@@ -89,15 +90,14 @@ public class ImageUtil {
 		}
 	}
 	//获取 . 后的内容
-	private static String getFileExtension(File cFile) {
-		String originalFileName = cFile.getName();
-		return originalFileName.substring(originalFileName.lastIndexOf("."));
+	private static String getFileExtension(String fileName) {
+		return fileName.substring(fileName.lastIndexOf("."));
 	}
 	/**
 	 * 生成随机文件,当前年月日小时分钟秒钟+五位随机数
 	 * @return
 	 */
-	private static String getRandomFileName() {
+	public static String getRandomFileName() {
 		//获取随机的五位数
 		int rannum = r.nextInt(89999)+10000;
 		String nowTimeStr=sDateFormat.format(new Date());

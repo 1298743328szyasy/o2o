@@ -1,6 +1,6 @@
 package cn.imnu.o2o.util;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public class HttpServletRequestUtil {
 	public static int getInt(HttpServletRequest request,String key) {

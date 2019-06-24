@@ -1,6 +1,6 @@
 package cn.imnu.o2o.util;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public class CodeUtil {
 	public static boolean checkVerifyCode(HttpServletRequest request) {

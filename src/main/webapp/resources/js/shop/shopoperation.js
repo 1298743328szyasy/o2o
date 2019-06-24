@@ -58,6 +58,7 @@ $(function(){
 					}else{
 						$.toast('提交失败!'+data.errMsg);
 					}
+					$('#captcha_img').click();
 				}
 			});
 		});

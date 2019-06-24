@@ -15,6 +15,6 @@ public class PathUtil {
 	}
 	public static String getShopImagePath(long shopId) {
 		String imagePath="/"+"upload/item/shop/"+shopId+"/";
-		return imagePath.replace("/", seperator);
+		return imagePath;
 	}
 }

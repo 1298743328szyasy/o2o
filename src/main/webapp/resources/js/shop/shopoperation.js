@@ -4,7 +4,7 @@
 $(function(){
 	var shopId=getQueryString('shopId');
 	<!-- 传id值是更新信息  不传是注册店铺 -->
-	var isEdit = shopId?true:false;
+	var isEdit = shopId ? true : false;
 	var initUrl='/o2o/shopadmin/getshopinitinfo';
 	var registerShopUrl='/o2o/shopadmin/registershop';
 	var shopInfoUrl="/o2o/shopadmin/getshopbyid?shopId="+shopId;

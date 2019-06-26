@@ -98,5 +98,5 @@ public class Product {
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
-	
+
 }

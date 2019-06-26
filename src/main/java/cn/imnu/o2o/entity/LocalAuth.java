@@ -45,5 +45,5 @@ public class LocalAuth {
 	public void setPersonInfo(PersonInfo personInfo) {
 		this.personInfo = personInfo;
 	}
-	 
+
 }

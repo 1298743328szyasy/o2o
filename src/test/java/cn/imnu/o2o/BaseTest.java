@@ -1,10 +1,9 @@
 package cn.imnu.o2o;
 /**
- * 
+ * 初始化spring容器
  * 配置spring和junit整合,junit启动时加载springIOC容器
  *
  */
-
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

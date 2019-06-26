@@ -2,6 +2,7 @@ package cn.imnu.o2o.entity;
 
 import java.util.Date;
 //头条
+import java.util.TimeZone;
 public class HeadLine {
 	private Long lineId;
 	private String lineName;
@@ -16,6 +17,9 @@ public class HeadLine {
 	private Date createTime;
 	//最后一次更新时间
 	private Date lastEditTime;
+
+
+
 	public Long getLineId() {
 		return lineId;
 	}
@@ -64,5 +68,5 @@ public class HeadLine {
 	public void setLastEditTime(Date lastEditTime) {
 		this.lastEditTime = lastEditTime;
 	}
-	
+
 }

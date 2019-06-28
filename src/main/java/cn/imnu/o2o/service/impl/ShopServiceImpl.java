@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.imnu.o2o.dao.ShopDao;
+import cn.imnu.o2o.dto.ImageHolder;
 import cn.imnu.o2o.dto.ShopExecution;
 import cn.imnu.o2o.entity.Shop;
 import cn.imnu.o2o.enums.ShopStateEnum;
@@ -24,7 +25,7 @@ public class ShopServiceImpl implements ShopService{
 	private ShopDao shopDao;
 	@Override
 	@Transactional
-	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream,String fileName) {
+	public ShopExecution addShop(Shop shop, ImageHolder thumbnail) {
 		//空值判断
 		if(shop==null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
@@ -38,10 +39,10 @@ public class ShopServiceImpl implements ShopService{
 			if(effectedNum<=0) {
 				throw new ShopOperationException("店铺创建失败");
 			}else {
-				if(shopImgInputStream!=null) {
+				if(thumbnail.getImage()!=null) {
 					//存储图片
 					try {
-						addShopImg(shop,shopImgInputStream,fileName);
+						addShopImg(shop,thumbnail);
 						
 					}catch(Exception e) {
 						throw new ShopOperationException("addShopImg error:"+e.getMessage());
@@ -59,10 +60,10 @@ public class ShopServiceImpl implements ShopService{
 		
 		return new ShopExecution(ShopStateEnum.CHECK,shop);
 	}
-	private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) throws UnsupportedEncodingException {
+	private void addShopImg(Shop shop, ImageHolder thumbnail) throws UnsupportedEncodingException {
 		//获取相对值路径
 		String dest = PathUtil.getShopImagePath(shop.getShopId());
-		String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream,fileName, dest);
+		String shopImgAddr = ImageUtil.generateThumbnail(thumbnail, dest);
 		shop.setShopImg(shopImgAddr);
 	}
 	@Override
@@ -71,7 +72,7 @@ public class ShopServiceImpl implements ShopService{
 		return shopDao.queryByShopId(shopId);
 	}
 	@Override
-	public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName)
+	public ShopExecution modifyShop(Shop shop, ImageHolder thumbnail)
 			throws ShopOperationException {
 		if(shop==null||shop.getShopId()==null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
@@ -79,12 +80,12 @@ public class ShopServiceImpl implements ShopService{
 			try {
 				
 
-			if(shopImgInputStream!=null && fileName!=null && !"".equals(fileName)) {
+			if(thumbnail.getImage()!=null && thumbnail.getImageName()!=null && !"".equals(thumbnail.getImageName())) {
 				Shop tempShop = shopDao.queryByShopId(shop.getShopId());
 				if(tempShop.getShopImg()!=null) {
 					ImageUtil.deleteFileOrPath(tempShop.getShopImg());
 				}
-					addShopImg(shop,shopImgInputStream,fileName);
+					addShopImg(shop,thumbnail);
 				
 				shop.setLastEditTime(new Date());
 				int effectedNum = shopDao.updateShop(shop);

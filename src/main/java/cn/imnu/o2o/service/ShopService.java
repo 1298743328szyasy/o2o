@@ -1,8 +1,6 @@
 package cn.imnu.o2o.service;
 
-import java.io.File;
-import java.io.InputStream;
-
+import cn.imnu.o2o.dto.ImageHolder;
 import cn.imnu.o2o.dto.ShopExecution;
 import cn.imnu.o2o.entity.Shop;
 import cn.imnu.o2o.exceptions.ShopOperationException;
@@ -24,7 +22,7 @@ public interface ShopService {
 	 * @return
 	 * @throws ShopOperationException
 	 */
-	ShopExecution addShop(Shop shop,InputStream shopImgInputStream,String fileName) throws ShopOperationException;
+	ShopExecution addShop(Shop shop,ImageHolder thumbnail) throws ShopOperationException;
 	/**
 	 * 根据店铺Id获取店铺信息
 	 * @param shopId
@@ -39,5 +37,5 @@ public interface ShopService {
 	 * @return
 	 * @throws ShopOperationException
 	 */
-	ShopExecution modifyShop(Shop shop,InputStream shopImgInputStream,String fileName) throws ShopOperationException;
+	ShopExecution modifyShop(Shop shop,ImageHolder thumbnail) throws ShopOperationException;
 }

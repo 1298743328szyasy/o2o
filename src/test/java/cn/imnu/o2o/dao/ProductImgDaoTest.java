@@ -6,17 +6,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.internal.MethodSorter;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.imnu.o2o.BaseTest;
 import cn.imnu.o2o.entity.ProductImg;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductImgDaoTest extends BaseTest{
 	@Autowired
 	private ProductImgDao productImgDao;
 	@Test
-	public void testABatchInsertProductImg() throws Exception {
+	public void testABatchInsertProductImg() {
 		// productId为1的商品里添加两个详情图片记录
 		ProductImg productImg1 = new ProductImg();
 		
@@ -36,4 +40,15 @@ public class ProductImgDaoTest extends BaseTest{
 		int effectedNum = productImgDao.batchInsertProductImg(productImgList);
 		assertEquals(2, effectedNum);
 	}
+	@Test
+	public void testBQueryProductImgList() {
+		List<ProductImg> productImgList=productImgDao.queryProductImgList(1L);
+		assertEquals(2,productImgList.size());
+	}
+	@Test
+	public void testCDeleteProductImgByProductId() throws Exception {
+		int effectedNum=productImgDao.deleteProductImgByProductId(1L);
+		assertEquals(2,effectedNum);
+		}
+	
 }

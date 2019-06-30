@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ProductServiceTest extends BaseTest{
 	@Autowired
 	private ProductService productService;
 	@Test
-	public void testAddProduct() throws ProductOperationException, FileNotFoundException{
+	public void testAddProduct() throws ProductOperationException, FileNotFoundException, UnsupportedEncodingException{
 		Product product = new Product();
 		Shop shop=new Shop();
 		shop.setShopId(1L);

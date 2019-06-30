@@ -62,4 +62,19 @@ public class ProductDaoTest extends BaseTest{
 		effectedNum = productDao.insertProduct(product3);
 		assertEquals(1,effectedNum);
 	}
+	@Test
+	public void testDUpdateProduct() throws Exception{
+		Product product = new Product();
+		ProductCategory pc = new ProductCategory();
+		Shop shop = new Shop();
+		shop.setShopId(1L);
+		pc.setProductCategoryId(2L);
+		product.setProductId(1L);
+		product.setShop(shop);
+		product.setProductName("测试商品1");
+//		product.setProductCategory(pc);
+		int effectedNum = productDao.updateProduct(product);
+		assertEquals(1,effectedNum);
+		
+	}
 }

@@ -3,6 +3,19 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.imnu.o2o.dao.ProductImgDao">
+	<select id="queryProductImgList" resultType="cn.imnu.o2o.entity.ProductImg">
+		SELECT
+		product_img_id,
+		img_addr,
+		img_desc,
+		priority,
+		create_time,
+		product_id
+		FROM tb_product_img
+		WHERE product_id=#{productId}
+		ORDER BY
+		product_img_id ASC
+	</select>
 	<insert id="batchInsertProductImg" parameterType="java.util.List">	
 		INSERT INTO
 		tb_product_img(img_addr,img_desc,priority,
@@ -19,4 +32,14 @@
 			)
 		</foreach>
 	</insert>
+
+	<delete id="deleteProductImgByProductId">
+		<!-- 具体的sql -->
+		DELETE FROM
+		tb_product_img
+		WHERE
+		product_id =
+		#{productId}
+	</delete>
+
 </mapper>

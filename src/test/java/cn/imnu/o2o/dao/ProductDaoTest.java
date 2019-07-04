@@ -3,7 +3,9 @@ package cn.imnu.o2o.dao;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
+import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +14,7 @@ import cn.imnu.o2o.entity.Product;
 import cn.imnu.o2o.entity.ProductCategory;
 import cn.imnu.o2o.entity.Shop;
 
+@FixMethodOrder(MethodS)
 public class ProductDaoTest extends BaseTest{
 	@Autowired
 	private ProductImgDao productImgDao;
@@ -63,6 +66,22 @@ public class ProductDaoTest extends BaseTest{
 		assertEquals(1,effectedNum);
 	}
 	@Test
+	public void testBQueryProductList() throws Exception{
+		Product productCondition=new Product();
+		List<Product> productList = productDao.queryProductList(productCondition,0,3);
+		assertEquals(3,productList.size());
+		//查询商品总数
+		int count = productDao.queryProductCount(productCondition);
+	    assertEquals(5,count);
+	    //使用商品名称模糊查询
+	    productCondition.setProductName("测试");
+	    productList = productDao.queryProductList(productCondition,0,3);
+	    assertEquals(5,productList.size());
+	    count = productDao.queryProductCount(productCondition);
+	    assertEquals(5,count);
+	}
+	@Test
+	@Ignore
 	public void testDUpdateProduct() throws Exception{
 		Product product = new Product();
 		ProductCategory pc = new ProductCategory();

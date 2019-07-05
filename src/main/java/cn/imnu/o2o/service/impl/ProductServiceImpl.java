@@ -171,4 +171,17 @@ public class ProductServiceImpl implements ProductService {
 		productImgDao.deleteProductImgByProductId(productId);
 	}
 
+	@Override
+	public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
+		//页码转换为数据库的行码
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		//调用Dao取回指定行码的商品
+		List<Product> productList=productDao.queryProductList(productCondition, rowIndex, pageSize);
+		int count = productDao.queryProductCount(productCondition);
+		ProductExecution pe = new ProductExecution();
+		pe.setProductList(productList);
+		pe.setCount(count);
+		return pe;
+	}
+
 }
